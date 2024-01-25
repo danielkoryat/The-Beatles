@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Main_Project.Models.Tour>
+
+@*
+
+*@
+@{
+    ViewData["Title"] = "Home";
+}
+<section class="content-section container">
+    <h2 class="section-header">TOURS</h2>
+    <div>
+        @foreach (var tour in Model)
+        {
+            <div class="tour-row">
+                <span class="tour-item tour-date">@tour.Date.ToString("MMM d")</span>
+                <span class="tour-item tour-city">@tour.City</span>
+                <span class="tour-item tour-arena">@tour.Arena</span>
+                <button type="button" class="tour-item tour-btn btn btn-primary">BUY TICKETS</button>
+            </div>
+        }
+
+
+    </div>
+</section>

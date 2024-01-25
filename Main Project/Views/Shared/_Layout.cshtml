@@ -1,0 +1,38 @@
+﻿@*
+*@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title - The Generics</title>
+    <meta name="description" content="@ViewBag.Description">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+    <header class="main-header">
+        <nav class="nav main-nav">
+            <ul>
+                <li><a asp-area="" asp-controller="Tour" asp-action="Index">HOME</a></li>
+                <li><a asp-area="" asp-controller="Store" asp-action="Index">STORE</a></li>
+                <li><a asp-area="" asp-controller="About" asp-action="Index">ABOUT</a></li>
+            </ul>
+        </nav>
+        <h1 class="band-name band-name-large">The Generics</h1>
+    </header>
+
+    <body>
+        @RenderBody()
+    </body>
+
+    <footer class="main-footer">
+        <div class="container main-footer-container">
+            <h3 class="band-name">The Generics</h3>
+            <ul class="nav footer-nav">
+            </ul>
+        </div>
+    </footer>
+    @RenderSection("Scripts", required: false)
+    <script src="~/js/site.js"></script>
+
+</body>
+</html>

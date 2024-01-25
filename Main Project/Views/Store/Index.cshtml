@@ -1,0 +1,35 @@
+﻿@model Main_Project.ViewModels.StoreIndexViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Store";
+}
+
+
+<section class="container content-section">
+    <h2 class="section-header">MUSIC</h2>
+    <div class="shop-items">
+        @foreach (var album in Model.StoreItems.OfType<Main_Project.Models.Album>())
+        {
+            @Html.Partial("_StoreItem", album)
+        }
+    </div>
+</section>
+<section class="container content-section">
+    <h2 class="section-header">MERCH</h2>
+    <div class="shop-items">
+        @foreach (var merchandise in Model.StoreItems.OfType<Main_Project.Models.Merchandise>())
+        {
+            @Html.Partial("_StoreItem", merchandise)
+        }
+    </div>
+</section>
+<section class="container content-section">
+    <h2 class="section-header">CART</h2>
+    <div id="cart-items-container">
+        @Html.Partial("_CartItems", Model);
+    </div>
+    
+    <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
+</section>

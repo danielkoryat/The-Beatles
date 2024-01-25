@@ -1,0 +1,58 @@
+﻿@model Main_Project.ViewModels.StoreIndexViewModel
+
+@{
+}
+
+<div class="cart-items">
+    @foreach (var cartItem in Model.CartItems)
+    {
+        var storeItem = Model.StoreItems.FirstOrDefault(item => item.Id == cartItem.Key.ItemId && item.GetType().Name == cartItem.Key.ItemType);
+        if (storeItem == null || cartItem.Value < 1) continue;
+
+        <div class="cart-row">
+            <div class="cart-item cart-column">
+                <img class="cart-item-image" src="@Url.Content($"~/{storeItem.Photo}")" width="100" height="100">
+                <span class="cart-item-title">@storeItem.Name</span>
+            </div>
+            <span class="cart-price cart-column">@storeItem.Price$</span>
+            <div class="cart-quantity cart-column">
+                <form id="remove-from-cart-form" method="post" asp-action="RemoveFromCart">
+                    <input class="cart-quantity-input" name="amount" type="number" min="1" max="@cartItem.Value" value="1">
+                    <input type="hidden" name="id" value="@storeItem.Id" />
+                    <input type="hidden" name="type" value="@storeItem.GetType().Name" />
+                    <button class="btn btn-danger" type="submit">REMOVE</button>
+                </form>
+            </div>
+        </div>
+    }
+    <div class="cart-total">
+        <strong class="cart-total-title">Total</strong>
+        <span class="cart-total-price">@Model.TotalCartSum$</span>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Event delegation for dynamically added forms
+        $('#cart-items-container').on('submit', 'form', function (event) {
+            event.preventDefault();
+            var $form = $(this);
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'POST',
+                data: $form.serialize(),
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function (partialViewResult) {
+                    $('#cart-items-container').html(partialViewResult);
+                },
+                error: function (xhr, status, error) {
+                    alert("Error removing item from cart.");
+                    console.error('There has been a problem with the AJAX operation:', error);
+                }
+            });
+        });
+    });
+</script>
+
