@@ -1,4 +1,3 @@
- Here is a draft README.md file for your ASP.NET MVC project for the band The Generics:
 
 # The Generics Website
 
