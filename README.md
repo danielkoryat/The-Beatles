@@ -11,7 +11,7 @@ The purpose of this project is to build a web presence for The Generics where fa
 
 - About Page - Band bio and information 
 - Store Page - Ability to purchase merch 
--Tour Page - Shows upcoming events
+- Tour Page - Shows upcoming events
 
 ## Usage
 
