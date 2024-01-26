@@ -20,15 +20,15 @@ html, body {
     min-height: 100%;
 }
 
-.nav ul {
+.nav-d ul {
     margin: 0;
 }
 
-.nav li {
+.nav-d li {
     display: inline;
 }
 
-.nav a {
+.nav-d a {
     display: inline-block;
     padding: .5em;
     color: white;
@@ -46,7 +46,7 @@ html, body {
         padding: 0 5%;
     }
 
-.nav a:hover {
+.nav-d a:hover {
     background-color: rgba(255, 255, 255, .3)
 }
 
@@ -339,6 +339,12 @@ html, body {
     font-size: 1.75em;
 }
 
-.alert {
-    margin-top: 20px;
+#alert-placeholder .alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    width: auto;
+    left: 20px;
+    right: 20px;
 }

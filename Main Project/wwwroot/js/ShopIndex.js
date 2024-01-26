@@ -1,8 +1,5 @@
 ﻿$(document).ready(function () {
-    // Event delegation for dynamically added forms
-    $('#store-container').off('submit', 'form');
-
-    $('#store-container').on('submit', 'form', function (event) {
+    $('body').on('submit', 'form', function (event) {
         event.preventDefault();
         var $form = $(this);
         $.ajax({
@@ -14,12 +11,26 @@
             },
             success: function (response) {
                 $('#cart-items-container').html(response.html);
-                alert(response.message);
+                displayBootstrapAlert('success', response.message);
             },
             error: function (xhr, status, error) {
-                alert("Error preforming that action.");
+                displayBootstrapAlert('danger', "Error performing that action.");
                 console.error('There has been a problem with the AJAX operation:', error);
             }
         });
     });
+
+    function displayBootstrapAlert(type, message) {
+        var alertType = type === 'success' ? 'alert-success' : 'alert-danger';
+        var alertHtml = '<div class="alert ' + alertType + ' alert-dismissible fade show" role="alert">' +
+            message +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
+            '</button>' +
+            '</div>';
+        $('#alert-placeholder').html(alertHtml);
+
+        setTimeout(function () {
+            $('.alert').alert('close');
+        }, 3000);
+    }
 });

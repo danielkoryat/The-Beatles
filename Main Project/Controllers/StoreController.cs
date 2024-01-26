@@ -2,8 +2,6 @@
 using Main_Project.interfaces;
 using Main_Project.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 
 namespace Main_Project.Controllers
 {
@@ -31,12 +29,14 @@ namespace Main_Project.Controllers
             _cartService.AddToCart(id, type, quantity);
 
             var cartViewModel = await GetCartViewModelAsync();
-            string html = await this.RenderViewAsync("_CartItems", cartViewModel, partial: true);
+
+            // Render partial view
+            string cartItemsPartialView = await this.RenderViewAsync("_CartItems", cartViewModel, partial: true);
 
             var result = new
             {
                 success = true,
-                html = html,
+                html = cartItemsPartialView,
                 message = "Item has been added to your cart."
             };
 
@@ -48,12 +48,12 @@ namespace Main_Project.Controllers
         {
             _cartService.RemoveFromCart(id, amount, type);
             var cartViewModel = await GetCartViewModelAsync();
-            string html = await this.RenderViewAsync("_CartItems", cartViewModel, partial: true);
+            string cartItemsPartialView = await this.RenderViewAsync("_CartItems", cartViewModel, partial: true);
 
             var result = new
             {
                 success = true,
-                html = html,
+                html = cartItemsPartialView,
                 message = "Item has been removed from your cart."
             };
 
