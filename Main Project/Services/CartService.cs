@@ -53,7 +53,29 @@ namespace Main_Project.Services
 
         public int GetCartCount() => GetCart().Count;
 
-        public decimal GetCartTotal() => GetCart().Sum(x => x.Value);
+        public double CalculateTotalPrice(List<IShoppingItem> items)
+        {
+            var cart = GetCart();
+
+            // Convert items to dictionary using composite keys (ItemId, ItemType)
+            var itemPriceDictionary = items.ToDictionary(
+                item => new CartItemKey(item.Id, item.GetType().Name),
+                item => item.Price
+                );
+
+            var totalPrice = cart.Sum(cartItem =>
+            {
+                // Check if the item exists in the itemPriceDictionary
+                if (itemPriceDictionary.TryGetValue(cartItem.Key, out var itemPrice))
+                {
+                    return itemPrice * cartItem.Value;
+                }
+
+                return 0;
+            });
+
+            return totalPrice;
+        }
 
         public void RemoveFromCart(int itemId, int quantity, string itemType)
         {

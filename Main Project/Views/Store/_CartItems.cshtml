@@ -17,7 +17,7 @@
             <span class="cart-price cart-column">@storeItem.Price$</span>
             <div class="cart-quantity cart-column">
                 <form id="remove-from-cart-form" method="post" asp-action="RemoveFromCart">
-                    <input class="cart-quantity-input" name="amount" type="number" min="1" max="@cartItem.Value" value="1">
+                    <input class="cart-quantity-input" name="amount" type="number" value="@cartItem.Value" readonly>
                     <input type="hidden" name="id" value="@storeItem.Id" />
                     <input type="hidden" name="type" value="@storeItem.GetType().Name" />
                     <button class="btn btn-danger" type="submit">REMOVE</button>

@@ -1,9 +1,7 @@
-﻿using Main_Project.Converters;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Main_Project.Structs
 {
-    [JsonConverter(typeof(CartItemKeyConverter))]
     public struct CartItemKey
     {
         public int ItemId { get; set; }

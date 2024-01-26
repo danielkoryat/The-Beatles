@@ -1,7 +1,6 @@
 using Main_Project.interfaces;
 using Main_Project.Services;
 using Main_Project.Data;
-
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,10 +20,21 @@ builder.Services.AddSession(options =>
 });
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Tour/Error");
+
+    app.UseHsts();
+}
+
 app.UseSession();
 app.UseStaticFiles();
 app.MapDefaultControllerRoute();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Tour}/{action=Index}/{id?}");

@@ -13,7 +13,7 @@ namespace Main_Project.interfaces
 
         int GetCartCount();
 
-        decimal GetCartTotal();
+        double CalculateTotalPrice(List<IShoppingItem> items);
 
         void ClearCart();
     }

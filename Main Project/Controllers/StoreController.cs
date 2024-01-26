@@ -29,6 +29,7 @@ namespace Main_Project.Controllers
         {
             _cartService.AddToCart(id, type, quantity);
             var cartViewModel = await GetCartViewModelAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -53,11 +54,9 @@ namespace Main_Project.Controllers
         {
             var items = await _storeService.GetItems();
             var cart = _cartService.GetCart();
-            var totalPriceSum = cart.Sum(cartDict =>
-            {
-                var item = items.FirstOrDefault(i => i.Id == cartDict.Key.ItemId);
-                return item?.Price * cartDict.Value ?? 0;
-            });
+
+            // Calculate total price for each item in the cart
+            var totalPriceSum = _cartService.CalculateTotalPrice(items);
 
             var data = new StoreIndexViewModel
             {
