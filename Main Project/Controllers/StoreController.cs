@@ -1,4 +1,5 @@
-﻿using Main_Project.interfaces;
+﻿using Main_Project.Extensions;
+using Main_Project.interfaces;
 using Main_Project.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,26 +29,35 @@ namespace Main_Project.Controllers
         public async Task<IActionResult> AddToCart(int id, int quantity, string type)
         {
             _cartService.AddToCart(id, type, quantity);
-            var cartViewModel = await GetCartViewModelAsync();
 
-            return RedirectToAction(nameof(Index));
+            var cartViewModel = await GetCartViewModelAsync();
+            string html = await this.RenderViewAsync("_CartItems", cartViewModel, partial: true);
+
+            var result = new
+            {
+                success = true,
+                html = html,
+                message = "Item has been added to your cart."
+            };
+
+            return Json(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> RemoveFromCart(int id, int amount, string type)
         {
-            try
-            {
-                _cartService.RemoveFromCart(id, amount, type);
-                TempData["SuccessMessage"] = "Item successfully removed from the cart.";
-            }
-            catch (InvalidOperationException ex)
-            {
-                TempData["ErrorMessage"] = ex.Message;
-            }
-
+            _cartService.RemoveFromCart(id, amount, type);
             var cartViewModel = await GetCartViewModelAsync();
-            return PartialView("_CartItems", cartViewModel);
+            string html = await this.RenderViewAsync("_CartItems", cartViewModel, partial: true);
+
+            var result = new
+            {
+                success = true,
+                html = html,
+                message = "Item has been removed from your cart."
+            };
+
+            return Json(result);
         }
 
         private async Task<StoreIndexViewModel> GetCartViewModelAsync()

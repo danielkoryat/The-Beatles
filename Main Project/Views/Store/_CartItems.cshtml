@@ -7,7 +7,6 @@
     @foreach (var cartItem in Model.CartItems)
     {
         var storeItem = Model.StoreItems.FirstOrDefault(item => item.Id == cartItem.Key.ItemId && item.GetType().Name == cartItem.Key.ItemType);
-        if (storeItem == null || cartItem.Value < 1) continue;
 
         <div class="cart-row">
             <div class="cart-item cart-column">
@@ -30,29 +29,4 @@
         <span class="cart-total-price">@Model.TotalCartSum$</span>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        // Event delegation for dynamically added forms
-        $('#cart-items-container').on('submit', 'form', function (event) {
-            event.preventDefault();
-            var $form = $(this);
-            $.ajax({
-                url: $form.attr('action'),
-                type: 'POST',
-                data: $form.serialize(),
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                success: function (partialViewResult) {
-                    $('#cart-items-container').html(partialViewResult);
-                },
-                error: function (xhr, status, error) {
-                    alert("Error removing item from cart.");
-                    console.error('There has been a problem with the AJAX operation:', error);
-                }
-            });
-        });
-    });
-</script>
 

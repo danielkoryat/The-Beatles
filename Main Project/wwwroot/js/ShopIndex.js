@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
-    $('#remove-from-cart-form').submit(function (event) {
+    // Event delegation for dynamically added forms
+    $('#store-container').off('submit', 'form');
+
+    $('#store-container').on('submit', 'form', function (event) {
         event.preventDefault();
         var $form = $(this);
         $.ajax({
@@ -9,33 +12,12 @@
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             },
-            success: function (partialViewResult) {
-                $('#cart-items-container').html(partialViewResult);
+            success: function (response) {
+                $('#cart-items-container').html(response.html);
+                alert(response.message);
             },
             error: function (xhr, status, error) {
-                alert("Error removing item from cart.");
-                console.error('There has been a problem with the AJAX operation:', error);
-            }
-        });
-    });
-});
-
-$(document).ready(function () {
-    $('#add-to-cart').submit(function (event) {
-        event.preventDefault();
-        var $form = $(this);
-        $.ajax({
-            url: $form.attr('action'),
-            type: 'POST',
-            data: $form.serialize(), // serialize the form data for submission
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            success: function (partialViewResult) {
-                $('#cart-items-container').html(partialViewResult);
-            },
-            error: function (xhr, status, error) {
-                alert("Error removing item from cart.");
+                alert("Error preforming that action.");
                 console.error('There has been a problem with the AJAX operation:', error);
             }
         });
