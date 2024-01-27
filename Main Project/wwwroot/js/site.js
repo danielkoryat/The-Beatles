@@ -21,7 +21,7 @@
     });
 
     function displayBootstrapAlert(type, message) {
-        var alertType = type === 'success' ? 'alert-success' : 'alert-danger';
+        var alertType = type === 'success' ? 'alert-primary' : 'alert-danger';
         var alertHtml = '<div class="alert ' + alertType + ' alert-dismissible fade show" role="alert">' +
             message +
             '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
