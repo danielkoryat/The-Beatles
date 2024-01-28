@@ -179,10 +179,17 @@ html, body {
         border: none;
     }
 
-.tour-item {
-    display: inline-block;
-    padding-right: .5em;
-}
+    .tour-item, .tour-row form, .tour-row button.tour-btn {
+        display: inline-block;
+        padding-right: .5em;
+    }
+
+    .tour-row form {
+        margin: 0;
+        padding: 0;
+        border: none;
+        width: auto;
+    }
 
 .tour-date {
     color: #555;
@@ -199,7 +206,8 @@ html, body {
 }
 
 .tour-btn {
-    max-width: 19%;
+    border: none;
+    padding: 0.5em 1em;
 }
 
 .shop-item {

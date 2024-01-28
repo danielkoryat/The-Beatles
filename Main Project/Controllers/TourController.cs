@@ -17,9 +17,8 @@ namespace Main_Project.Controllers
         // GET: Tours
         public async Task<IActionResult> Index()
         {
-            return _context.Tours != null ?
-                        View(await _context.Tours.ToListAsync()) :
-                        Problem("Entity set 'Basic_ProjectContext.Tour'  is null.");
+            var tours = await _context.Tours.ToListAsync();
+            return View(tours);
         }
 
         public IActionResult Error()

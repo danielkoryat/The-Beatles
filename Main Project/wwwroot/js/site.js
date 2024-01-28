@@ -2,6 +2,8 @@
     $('body').on('submit', 'form', function (event) {
         event.preventDefault();
         var $form = $(this);
+        var responseTarget = $form.data('response-target');
+
         $.ajax({
             url: $form.attr('action'),
             type: 'POST',
@@ -10,7 +12,7 @@
                 'X-Requested-With': 'XMLHttpRequest'
             },
             success: function (response) {
-                $('#cart-items-container').html(response.html);
+                $(responseTarget).html(response.html);
                 displayBootstrapAlert('success', response.message);
             },
             error: function (xhr, status, error) {
@@ -24,8 +26,7 @@
         var alertType = type === 'success' ? 'alert-primary' : 'alert-danger';
         var alertHtml = '<div class="alert ' + alertType + ' alert-dismissible fade show" role="alert">' +
             message +
-            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
-            '</button>' +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
             '</div>';
         $('#alert-placeholder').html(alertHtml);
 
