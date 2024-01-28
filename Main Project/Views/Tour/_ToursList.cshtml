@@ -1,0 +1,26 @@
+﻿@model Main_Project.ViewModels.ToursListViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@foreach (var tour in Model.Tours)
+{
+    <div class="tour-row">
+        <span class="tour-item tour-date">@tour.Date.ToString("MMM d")</span>
+        <span class="tour-item tour-city">@tour.City</span>
+        <span class="tour-item tour-arena">@tour.Arena</span>
+        @if (!Model.PurchasedToursIds.Contains(tour.Id))
+        {
+            <form asp-action="PurchaseTicket" method="post" data-response-target="#tours-container">
+                <input type="hidden" name="tourId" value="@tour.Id" />
+                <button type="submit" class="tour-item tour-btn btn btn-primary">BUY TICKETS</button>
+            </form>
+        }
+        else 
+        {
+            <label class="label label-default">Bought</label>
+        }
+    </div>
+}

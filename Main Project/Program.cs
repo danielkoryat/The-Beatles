@@ -9,6 +9,7 @@ builder.Services.AddDbContext<MainProjectContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IStoreService, StoreService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ITourService, TourService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();

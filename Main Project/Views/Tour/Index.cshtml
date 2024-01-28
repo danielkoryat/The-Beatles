@@ -1,16 +1,13 @@
-﻿@model IEnumerable<Main_Project.Models.Tour>
+﻿@model Main_Project.ViewModels.ToursListViewModel
 @*
 
 *@
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = " Tours";
 }
 <section class="content-section container">
     <h2 class="section-header">TOURS</h2>
-    <div>
-        @foreach (var tour in Model)
-        {
-            @Html.Partial("_TourRow", tour)
-        }
+    <div id="tours-container">
+        @Html.Partial("_ToursList", Model)
     </div>
 </section>

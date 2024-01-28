@@ -10,20 +10,13 @@ namespace Main_Project.Services
     public class CartService : ICartService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private const string SessionKeyCartItems = "advancedProgrammer99";
+        private const string SessionKeyCartItems = "Cart";
 
         public Dictionary<CartItemKey, int> Items { get; set; } = new();
 
         public CartService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-        }
-
-        private void SaveCartItems(Dictionary<CartItemKey, int> items)
-        {
-            var session = _httpContextAccessor.HttpContext.Session;
-            var itemsJson = SerializeCart(items);
-            session.SetString(SessionKeyCartItems, itemsJson);
         }
 
         public Dictionary<CartItemKey, int> GetCart()
@@ -97,6 +90,14 @@ namespace Main_Project.Services
                 }
             }
             SaveCartItems(items);
+        }
+
+        // Helper methods
+        private void SaveCartItems(Dictionary<CartItemKey, int> items)
+        {
+            var session = _httpContextAccessor.HttpContext.Session;
+            var itemsJson = SerializeCart(items);
+            session.SetString(SessionKeyCartItems, itemsJson);
         }
 
         private CartItemKey GenarateKey(int itemId, string itemType) => new CartItemKey(itemId, itemType);

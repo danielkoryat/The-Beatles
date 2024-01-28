@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Main_Project.Controllers
 {
+    //TODO: verify async methods efficiency
+
     public class StoreController : Controller
     {
         private readonly IStoreService _storeService;
