@@ -195,6 +195,7 @@ html, body {
     color: #555;
     width: 11%;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .tour-city {
