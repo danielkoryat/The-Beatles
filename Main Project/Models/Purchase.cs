@@ -1,4 +1,6 @@
-﻿using Main_Project.Validations;
+﻿using Main_Project.Migrations;
+using Main_Project.Validations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Main_Project.Models
 {

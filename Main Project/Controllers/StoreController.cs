@@ -65,9 +65,12 @@ namespace Main_Project.Controllers
             return Json(result);
         }
 
-        public async Task<IActionResult> Purchase(string fullName, double amount)
+        public async Task<IActionResult> Purchase(string fullName)
         {
-            var purchase = new Purchase { FullName = fullName, Amount = amount };
+            var items = await _storeService.GetItems();
+            double cartTotalPrice = _cartService.CalculateTotalPrice(items);
+
+            var purchase = new Purchase { FullName = fullName, Amount = cartTotalPrice };
             string errorMessage = _storeService.ValidatePurchase(purchase);
             if (errorMessage != null)
             {

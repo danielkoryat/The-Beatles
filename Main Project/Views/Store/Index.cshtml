@@ -12,7 +12,7 @@
         <div class="shop-items" id="albums">
             @foreach (var album in Model.StoreItems.OfType<Main_Project.Models.Album>())
             {
-                @Html.Partial("_StoreItem", album)
+                <partial name="_StoreItem" model="album" />
             }
         </div>
     </section>
@@ -21,19 +21,19 @@
         <div class="shop-items" id="merchandises">
             @foreach (var merchandise in Model.StoreItems.OfType<Main_Project.Models.Merchandise>())
             {
-                @Html.Partial("_StoreItem", merchandise)
+               <partial name="_StoreItem" model="merchandise" />
             }
         </div>
     </section>
     <section class="container content-section">
         <h2 class="section-header">CART</h2>
         <div id="cart-items-container">
-            @Html.Partial("_CartItems", Model);
+            <partial name="_CartItems" model="Model" />
         </div>
-        <button class="btn btn-primary btn-purchase" data-bs-toggle="modal" data-bs-target="#exampleModal">PURCHASE</button>
+        <button class="btn btn-primary btn-purchase" data-bs-toggle="modal" data-bs-target="#purchaseModal">PURCHASE</button>
     </section>
     <section>
-        <partial name="_PurchaseModal" model="Model.TotalCartSum" />
+        <partial name="_PurchaseModal"/>
     </section>
 
 </div>

@@ -11,7 +11,7 @@ namespace Main_Project.Services
     public class CartService : ICartService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private const string SessionKeyCartItems = "Cart"; // Session key for storing cart items.
+        private const string SessionKeyCartItems = "Cart";
 
         public Dictionary<CartItemKey, int> Items { get; set; } = new(); // Dictionary to hold cart items.
 

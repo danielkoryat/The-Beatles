@@ -4,6 +4,7 @@ using Main_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Main_Project.Migrations
 {
     [DbContext(typeof(MainProjectContext))]
-    partial class MainProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20240209121318_UpdatePurchasesTable")]
+    partial class UpdatePurchasesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
