@@ -12,26 +12,30 @@
                 'X-Requested-With': 'XMLHttpRequest'
             },
             success: function (response) {
-                $(responseTarget).html(response.html);
-                displayBootstrapAlert('success', response.message);
+                updateResponseTarget(response, responseTarget);
+                displayBootstrapAlert(response.success, response.message);
             },
             error: function (xhr, status, error) {
-                displayBootstrapAlert('danger', "Error performing that action.");
-                console.error('There has been a problem with the AJAX operation:', error);
+                displayBootstrapAlert(false, "Error performing that action.");
+                console.error('AJAX error:', status, error);
             }
         });
     });
 
-    function displayBootstrapAlert(type, message) {
-        var alertType = type === 'success' ? 'alert-primary' : 'alert-danger';
-        var alertHtml = '<div class="alert ' + alertType + ' alert-dismissible fade show" role="alert">' +
-            message +
-            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-            '</div>';
-        $('#alert-placeholder').html(alertHtml);
+    function updateResponseTarget(response, target) {
+        if (response.html) {
+            $(target).html(response.html);
+        }
+    }
 
-        setTimeout(function () {
-            $('.alert').alert('close');
-        }, 3000);
+    function displayBootstrapAlert(isSuccess, message) {
+        var alertType = isSuccess ? 'alert-primary' : 'alert-danger';
+        var alertHtml = `<div class="alert ${alertType} alert-dismissible fade show" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`;
+        $('#alert-placeholder').html(alertHtml).alert();
+
+        setTimeout(() => $('.alert').alert('close'), 3000);
     }
 });

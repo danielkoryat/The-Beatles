@@ -4,6 +4,8 @@ using Main_Project.Data;
 using Main_Project.interfaces;
 
 using Microsoft.EntityFrameworkCore;
+using Main_Project.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Main_Project.Services
 {
@@ -37,6 +39,35 @@ namespace Main_Project.Services
             List<IShoppingItem> items = albums.Concat(merchandises).ToList();
 
             return items;
+        }
+
+        public async Task<bool> Purchase(Purchase purchase)
+        {
+            try
+            {
+                _context.Purchases.Add(purchase);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateException)
+            {
+                return false;
+            }
+        }
+
+        public string? ValidatePurchase(Purchase purchase)
+        {
+            var validationContext = new ValidationContext(purchase, serviceProvider: null, items: null);
+            var validationResults = new List<ValidationResult>();
+
+            bool isValid = Validator.TryValidateObject(purchase, validationContext, validationResults, validateAllProperties: true);
+
+            if (!isValid && validationResults.Count > 0)
+            {
+                // Return the first validation error message found.
+                return validationResults[0].ErrorMessage;
+            }
+            return null;
         }
     }
 }

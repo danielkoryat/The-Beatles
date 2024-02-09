@@ -30,6 +30,10 @@
         <div id="cart-items-container">
             @Html.Partial("_CartItems", Model);
         </div>
-        <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
+        <button class="btn btn-primary btn-purchase" data-bs-toggle="modal" data-bs-target="#exampleModal">PURCHASE</button>
     </section>
+    <section>
+        <partial name="_PurchaseModal" model="Model.TotalCartSum" />
+    </section>
+
 </div>

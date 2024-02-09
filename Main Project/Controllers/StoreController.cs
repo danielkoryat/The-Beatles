@@ -1,7 +1,10 @@
 ﻿using Main_Project.Extensions;
 using Main_Project.interfaces;
+using Main_Project.Models;
+using Main_Project.Validations;
 using Main_Project.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Main_Project.Controllers
 {
@@ -60,6 +63,27 @@ namespace Main_Project.Controllers
             };
 
             return Json(result);
+        }
+
+        public async Task<IActionResult> Purchase(string fullName, double amount)
+        {
+            var purchase = new Purchase { FullName = fullName, Amount = amount };
+            string errorMessage = _storeService.ValidatePurchase(purchase);
+            if (errorMessage != null)
+            {
+                return this.CreateResponse(message: errorMessage, success: false);
+            }
+            bool isSucsess = await _storeService.Purchase(purchase);
+            if (!isSucsess)
+            {
+                return this.CreateResponse(message: "Purchase failed", success: false);
+            }
+
+            _cartService.ClearCart();
+            var storeIndexViewModel = await GetCartViewModelAsync();
+            var partialView = await this.RenderViewAsync("_CartItems", storeIndexViewModel, partial: true);
+
+            return this.CreateResponse(message: "Thank you for your purchase!", html: partialView);
         }
 
         private async Task<StoreIndexViewModel> GetCartViewModelAsync()

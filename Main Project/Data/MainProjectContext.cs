@@ -19,5 +19,7 @@ namespace Main_Project.Data
         public DbSet<Main_Project.Models.Album> Albums { get; set; } = default!;
 
         public DbSet<Main_Project.Models.Merchandise> Merchandises { get; set; } = default!;
+
+        public DbSet<Main_Project.Models.Purchase> Purchases { get; set; } = default!;
     }
 }

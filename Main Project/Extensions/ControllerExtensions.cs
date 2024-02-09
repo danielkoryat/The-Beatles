@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using Main_Project.Models;
 
 namespace Main_Project.Extensions
 {
@@ -49,6 +51,16 @@ namespace Main_Project.Extensions
                 // Return the rendered view as a string.
                 return writer.GetStringBuilder().ToString();
             }
+        }
+
+        public static IActionResult CreateResponse(this Controller controller, string message, string? html = null, bool success = true)
+        {
+            return controller.Json(new ResultObject
+            {
+                Success = success,
+                Message = message,
+                Html = html
+            });
         }
     }
 }
